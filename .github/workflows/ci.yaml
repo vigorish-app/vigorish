@@ -28,5 +28,9 @@ jobs:
             ${{ runner.os }}-node-
       - name: Install packages
         run: npm ci
+      - name: Check code formatting
+        run: npm run format:check
+      - name: Lint the code
+        run: npm run lint
       - name: Build the site
         run: npm run build
