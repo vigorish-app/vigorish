@@ -1,0 +1,12 @@
+services:
+  db:
+    # postgresql://postgres:TEST_LOCAL_ONLY_PASSWORD@localhost
+    # Inside docker: postgresql://postgres:TEST_LOCAL_ONLY_PASSWORD@db
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: TEST_LOCAL_ONLY_PASSWORD
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./schemas:/docker-entrypoint-initdb.d
