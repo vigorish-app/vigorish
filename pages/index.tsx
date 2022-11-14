@@ -1,5 +1,28 @@
+import Link from "next/link";
 import Head from "next/head";
 import { Navbar } from "flowbite-react";
+
+import Session from "supertokens-auth-react/recipe/session";
+import { redirectToAuth } from "supertokens-auth-react";
+import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
+
+async function handleSignout() {
+  await signOut();
+  location.href = "/";
+}
+
+function LoggedInConditional(props: any) {
+  let sessionContext = Session.useSessionContext();
+  if (sessionContext.loading) {
+    return null;
+  }
+  if (sessionContext.doesSessionExist) {
+    return props.ifTrue;
+  } else {
+    return props.ifFalse;
+  }
+  return null;
+}
 
 export default function Home() {
   return (

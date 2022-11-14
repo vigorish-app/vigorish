@@ -1,0 +1,25 @@
+import { superTokensNextWrapper } from "supertokens-node/nextjs";
+import { verifySession } from "supertokens-node/recipe/session/framework/express";
+import supertokens from "supertokens-node";
+import { backendConfig } from "../../config/backend_config";
+
+supertokens.init(backendConfig());
+
+export default async function user(req: any, res: any) {
+  // we first verify the session
+  await superTokensNextWrapper(
+    async (next) => {
+      return await verifySession()(req, res, next);
+    },
+    req,
+    res
+  );
+  // if it comes here, it means that the session verification was successful
+
+  return res.json({
+    note: "Fetch any data from your application for authenticated user after using verifySession middleware",
+    userId: req.session.getUserId(),
+    sessionHandle: req.session.getHandle(),
+    userDataInAccessToken: req.session.getAccessTokenPayload(),
+  });
+}

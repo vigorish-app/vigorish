@@ -19,9 +19,12 @@
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.3.4",
     "next": "13.0.2",
+    "nextjs-cors": "^2.1.2",
     "pg": "^8.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "supertokens-auth-react": "^0.27.1",
+    "supertokens-node": "^12.0.5",
     "typescript": "4.8.4"
   },
   "devDependencies": {
