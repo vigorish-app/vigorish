@@ -19,7 +19,6 @@
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.3.4",
     "next": "13.0.2",
-    "nextjs-cors": "^2.1.2",
     "pg": "^8.8.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
