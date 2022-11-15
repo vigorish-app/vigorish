@@ -32,4 +32,6 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 ## Styling
 
-We use [Tailwind](https://tailwindcss.com/) for styling.
+We use [Tailwind](https://tailwindcss.com/) for styling. We also use
+[Flowbite](https://flowbite.com/) and [Flowbite
+React](https://flowbite-react.com/), which are built on Tailwind.
