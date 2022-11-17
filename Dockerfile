@@ -12,6 +12,9 @@ ENV NEXT_TELEMETRY_DISABLED 1
 # then put the value on your fly.toml
 # Example:
 # ARG NEXT_PUBLIC_EXAMPLE="value here"
+ARG NEXT_PUBLIC_VIGORISH_API_URL="https://vigorish.fly.dev/"
+ARG NEXT_PUBLIC_VIGORISH_ROOT_URL="https://vigorish.fly.dev/"
+
 
 RUN npm run build
 
