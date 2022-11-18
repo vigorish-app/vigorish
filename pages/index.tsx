@@ -2,6 +2,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Navbar, Button } from "flowbite-react";
 
+import UserCard from "../components/user_card";
 import Session from "supertokens-auth-react/recipe/session";
 import { redirectToAuth } from "supertokens-auth-react";
 import { signOut } from "supertokens-auth-react/recipe/thirdpartyemailpassword";
@@ -61,6 +62,8 @@ export default function Home() {
         <h1 className="text-center">Vigorish</h1>
 
         <p className="text-center">Validate your worldview</p>
+
+        <UserCard marketValue={602} personalValue={-2374}></UserCard>
       </main>
     </div>
   );
