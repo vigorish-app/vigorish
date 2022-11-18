@@ -10,28 +10,28 @@ function makeAmountClass(amount: number): string {
   return color;
 }
 
+function makeLineItem(description: string, amount: number) {
+  return (
+    <div className="flex flex-row justify-between">
+      <div className="flex-1">{description}</div>
+      <div className={"flex-grow text-right " + makeAmountClass(amount)}>
+        {makeAmount(amount)}
+      </div>
+    </div>
+  );
+}
+
 export default function UserCard(props: any) {
   let totalValue = props.marketValue + props.personalValue;
 
-  let totalValueStyle = `text-2xl font-bold text-center ${makeAmountClass(
+  let totalValueStyle = `text-5xl font-bold text-center ${makeAmountClass(
     totalValue
   )}`;
   return (
     <Card className="max-w-lg mx-auto">
       <h1 className={totalValueStyle}>{makeAmount(totalValue)}</h1>
-
-      <div className="flex">
-        <div className="flex-1">Personal Events</div>
-        <div className={"flex-grow " + makeAmountClass(props.personalValue)}>
-          {makeAmount(props.personalValue)}
-        </div>
-      </div>
-      <div className="flex">
-        <div className="flex-1">Market Events</div>
-        <div className={"flex-grow " + makeAmountClass(props.marketValue)}>
-          {makeAmount(props.marketValue)}
-        </div>
-      </div>
+      {makeLineItem("Personal Events", props.personalValue)}
+      {makeLineItem("Market Events", props.marketValue)}
     </Card>
   );
 }
