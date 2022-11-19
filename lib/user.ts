@@ -6,11 +6,11 @@ function mapRowToUser(row: any) {
 }
 
 export class User {
-  id: number;
+  id: string;
   personalAmount: number;
   marketAmount: number;
 
-  static async load(id: number) {
+  static async load(id: string) {
     let sql = `SELECT ${USER_FIELDS}
             FROM users
             WHERE user_id=$1`;
@@ -22,11 +22,11 @@ export class User {
     return mapRowToUser(row);
   }
 
-  static async create() {
+  static async create(id: string) {
     // in the future will accept some args like auth/email?
-    let sql = `INSERT INTO users DEFAULT VALUES
+    let sql = `INSERT INTO users (user_id) VALUES ($1)
             RETURNING ${USER_FIELDS}`;
-    let result = await query(sql, []);
+    let result = await query(sql, [id]);
     if (result.rowCount < 1) {
       return undefined;
     }
@@ -34,7 +34,7 @@ export class User {
     return mapRowToUser(row);
   }
 
-  constructor(id: number, personalAmount: number, marketAmount: number) {
+  constructor(id: string, personalAmount: number, marketAmount: number) {
     this.id = id;
     this.personalAmount = personalAmount;
     this.marketAmount = marketAmount;

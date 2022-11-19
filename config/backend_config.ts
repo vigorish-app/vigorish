@@ -4,6 +4,8 @@ import EmailVerification from "supertokens-node/recipe/emailverification";
 import { appInfo } from "./app_info";
 import { TypeInput } from "supertokens-node/types";
 
+import { User } from "../lib/user";
+
 export const backendConfig = (): TypeInput => {
   return {
     framework: "express",
@@ -33,6 +35,35 @@ export const backendConfig = (): TypeInput => {
           //   clientId: "FACEBOOK_CLIENT_ID",
           // }),
         ],
+        override: {
+          apis: (originalImplementation) => {
+            return {
+              ...originalImplementation,
+              emailPasswordSignUpPOST: async function (input) {
+                if (!originalImplementation.emailPasswordSignUpPOST) {
+                  throw new Error("emailPasswordSignUpPOST not implemented");
+                }
+                let response =
+                  await originalImplementation.emailPasswordSignUpPOST(input);
+                if (response.status === "OK") {
+                  await User.create(response.user.id);
+                }
+                return response;
+              },
+              thirdPartySignInUpPOST: async function (input) {
+                if (!originalImplementation.thirdPartySignInUpPOST) {
+                  throw new Error("emailPasswordSignUpPOST not implemented");
+                }
+                let response =
+                  await originalImplementation.thirdPartySignInUpPOST(input);
+                if (response.status == "OK" && response.createdNewUser) {
+                  await User.create(response.user.id);
+                }
+                return response;
+              },
+            };
+          },
+        },
       }),
       EmailVerification.init({
         mode: "REQUIRED", // or "OPTIONAL"
