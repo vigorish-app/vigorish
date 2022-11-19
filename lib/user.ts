@@ -47,4 +47,12 @@ export class User {
             WHERE user_id = $3`;
     await query(sql, [this.id, this.personalAmount, this.marketAmount]);
   }
+
+  json() {
+    return {
+      id: this.id,
+      personalAmount: this.personalAmount,
+      marketAmount: this.marketAmount,
+    };
+  }
 }

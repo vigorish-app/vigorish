@@ -18,9 +18,9 @@ function LoggedInConditional(props: any) {
     return null;
   }
   if (sessionContext.doesSessionExist) {
-    return props.ifTrue;
+    return props.ifTrue || null;
   } else {
-    return props.ifFalse;
+    return props.ifFalse || null;
   }
   return null;
 }
@@ -63,7 +63,9 @@ export default function Home() {
 
         <p className="text-center">Validate your worldview</p>
 
-        <UserCard marketValue={602} personalValue={-2374}></UserCard>
+        <LoggedInConditional
+          ifTrue={<UserCard></UserCard>}
+        ></LoggedInConditional>
       </main>
     </div>
   );
