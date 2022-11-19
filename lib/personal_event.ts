@@ -10,7 +10,7 @@ function makeOptionFromRow(row: any) {
 }
 
 export interface UncreatedPersonalEvent {
-  userId: number;
+  userId: string;
   description: string;
   notes?: string;
 }
@@ -21,7 +21,7 @@ export interface UncreatedPersonalEventOption {
 
 export class PersonalEvent {
   id: number;
-  userId: number;
+  userId: string;
   description: string;
   options: PersonalEventOption[];
   createdTimestamp: Date;
@@ -34,7 +34,7 @@ export class PersonalEvent {
 
   constructor(
     id: number,
-    userId: number,
+    userId: string,
     description: string,
     options: PersonalEventOption[],
     createdTimestamp: Date,
@@ -133,7 +133,7 @@ export class PersonalEvent {
     );
   }
 
-  static async loadAllForUser(userId: number) {
+  static async loadAllForUser(userId: string) {
     let sql = `SELECT e.event_id, e.user_id, e.event_description, e.finished_timestamp,
             e.winning_option, e.net_result, e.notes, e.created_timestamp,
             o.option_id, o.option_description, o.bet_amount

@@ -16,12 +16,12 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  let user = await User.create();
-  let user2 = await User.load(user?.id || 0);
+  let user = await User.create("ab");
+  let user2 = await User.load(user?.id || "");
 
   let eventId = await PersonalEvent.create(
     {
-      userId: user?.id || 0,
+      userId: user?.id || "",
       description: "This is an event",
       notes: "Important note",
     },
@@ -37,7 +37,7 @@ export default async function handler(
     ]
   );
   let event = await PersonalEvent.load(eventId);
-  let events = await PersonalEvent.loadAllForUser(user?.id || 0);
+  let events = await PersonalEvent.loadAllForUser(user?.id || "");
 
   res.status(200).json({ name: "John Doe" + eventId });
 }
