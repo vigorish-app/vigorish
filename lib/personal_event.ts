@@ -55,6 +55,43 @@ export class PersonalEvent {
     this.netResult = netResult;
   }
 
+  async setWinner(winningOptionId: number) {
+    if (this.winningOption != null) {
+      return false;
+    }
+    let amount = 0;
+    let found = false;
+    let multiplier = this.options.length - 1;
+    for (let option of this.options) {
+      if (option.id == winningOptionId) {
+        found = true;
+        amount += option.betAmount * multiplier;
+      } else {
+        amount -= option.betAmount;
+      }
+    }
+    if (!found) {
+      console.log(
+        `Couldn't find option ${winningOptionId} in personal event ${this.id}`
+      );
+      return false;
+    }
+    // Things to update: winningOption, finishedTimestamp, netResult
+    let sql = `UPDATE personal_events
+                SET finished_timestamp = NOW(),
+                net_result = $1,
+                winning_option = $2
+              WHERE event_id = $3`;
+
+    await query(sql, [amount, winningOptionId, this.id]);
+
+    // Update user's personal amount
+    let sqlUser = `UPDATE users SET personal_amount = personal_amount + $1
+                  WHERE user_id = $2`;
+    await query(sqlUser, [amount, this.userId]);
+    return true;
+  }
+
   static async create(
     event: UncreatedPersonalEvent,
     options: UncreatedPersonalEventOption[]

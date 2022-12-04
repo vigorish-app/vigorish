@@ -1,15 +1,7 @@
 import { Card } from "flowbite-react";
 import { useState, useEffect } from "react";
 
-function makeAmount(amount: number): string {
-  let prefix = amount >= 0 ? "+" : "-";
-  return `${prefix} \$${Math.abs(amount).toLocaleString()}`;
-}
-
-function makeAmountClass(amount: number): string {
-  let color = amount >= 0 ? "text-green-600" : "text-red-600";
-  return color;
-}
+import { makeAmount, makeAmountClass } from "../components/util";
 
 function makeLineItem(description: string, amount: number) {
   return (
