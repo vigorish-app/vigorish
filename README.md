@@ -1,6 +1,11 @@
 # Vigorish
 
-## Getting Started
+Vigorish is a webapp to set personal wagers and assign probabilities to outcomes.
+
+![image](https://user-images.githubusercontent.com/2160795/209411343-26435a74-6619-48ac-acb0-34e008b76b69.png)
+
+
+## Development
 
 First bring up the database:
 
